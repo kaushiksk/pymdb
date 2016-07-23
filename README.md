@@ -17,7 +17,8 @@ Download the pymdb.py script into your Python27 folder and import it in your scr
         Returns a dictionary
     
     top_250()
-        Pulls out movie names from the Imdb Top 250 webpage and adds them to a dictionary with its position.Returns dictionary
+        Pulls out movie names from the Imdb Top 250 webpage and adds them to a dictionary with its position.
+        Returns dictionary
     
     years_top250()
             Creates a dictionary of year of the movies of the top 250 in the order of ranking.
