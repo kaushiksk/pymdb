@@ -4,8 +4,8 @@ Python  script to scrape data from IMDb Top250 (www.imdb.com/chart/top) and pars
 ##Installation
 Download the pymdb.py script into your Python27 folder and import it in your scripts.
 
-##USage
-   import imdb
+##Usage
+    import imdb
    
 ##Functions
     top250_id()
@@ -24,12 +24,12 @@ Download the pymdb.py script into your Python27 folder and import it in your scr
         Returns  dictionary
         
 ##Using the Movie and MovieId Class
-  Initialise:
+    Initialise:
       m = Movie("The Shawshank Redemption")
       m = Movie("The Shawshank Redemption",1994)
       m = MovieId("tt0111161")
   
-  Use Class functions:
+    Use Class functions:
       m.year()
       m.director()
       m.getposter()
