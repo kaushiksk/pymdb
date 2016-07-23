@@ -5,7 +5,7 @@ Python  script to scrape data from IMDb Top250 (www.imdb.com/chart/top) and pars
 Download the pymdb.py script into your Python27 folder and import it in your scripts.
 
 ##Usage
-    import imdb
+    import pymdb
    
 ##Functions
     top250_id()
