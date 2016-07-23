@@ -1,10 +1,12 @@
 # pymdb
 Python  script to scrape data from IMDb Top250 (www.imdb.com/chart/top) and parse xml of movie data from OMDb API (www.omdbapi.com)
 
-##Installation and Usage
+##Installation
 Download the pymdb.py script into your Python27 folder and import it in your scripts.
-    import pymdb
 
+##USage
+   import imdb
+   
 ##Functions
     top250_id()
         Pulls out ImDb Title ID's from the Imdb Top 250 webpage and adds them to a list.
@@ -23,17 +25,17 @@ Download the pymdb.py script into your Python27 folder and import it in your scr
         
 ##Using the Movie and MovieId Class
   Initialise:
-  1.m = Movie("The Shawshank Redemption")
-  2.m = Movie("The Shawshank Redemption",1994)
-  3.m = MovieId("tt0111161")
+      m = Movie("The Shawshank Redemption")
+      m = Movie("The Shawshank Redemption",1994)
+      m = MovieId("tt0111161")
   
   Use Class functions:
-  m.year()
-  m.director()
-  m.getposter()
-  .
-  .
-  type help(pymdb.Movie) for more.
+      m.year()
+      m.director()
+      m.getposter()
+      .
+      .
+      type help(pymdb.Movie) for more.
   
   
 ##Example script: Download posters of all movies in IMDb Top250.
