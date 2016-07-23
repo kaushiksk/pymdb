@@ -5,7 +5,8 @@ import xml.etree.ElementTree as ET
 
 
 def top_250():
-    """Pulls out movie names from the Imdb Top 250 webpage and adds them to a dictionary with its position.Returns dictionary"""
+    """Pulls out movie names from the Imdb Top 250 webpage and adds them to a dictionary with its position.
+    Returns dictionary"""
 
     movielist=dict()
     i=1
