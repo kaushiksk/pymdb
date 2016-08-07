@@ -83,7 +83,7 @@ class Movie():
         serviceurl = 'http://www.omdbapi.com/?'
 	url = serviceurl+urllib.urlencode({'t':title,
                                            'type':'movie',
-                                           'y':None,
+                                           'y':year,
                                            'plot':'short',
                                            'tomatoes':'true',
                                            'r':'xml'})
