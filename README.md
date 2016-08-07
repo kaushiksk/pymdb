@@ -26,9 +26,9 @@ Download the pymdb.py script into your Python27 folder and import it in your scr
         
 ##Using the Movie and MovieId Class
     Initialise:
-      m = Movie("The Shawshank Redemption")
-      m = Movie("The Shawshank Redemption",1994)
-      m = MovieId("tt0111161")
+      m = pymdb.Movie("The Shawshank Redemption")
+      m = pymdb.Movie("The Shawshank Redemption",1994)
+      m = pymdb.MovieId("tt0111161")
   
     Use Class functions:
       m.year()
@@ -44,7 +44,7 @@ Download the pymdb.py script into your Python27 folder and import it in your scr
     import pymdb
     ids = pymdb.top250_id()
     for id in ids:
-      m = MovieId(id)
+      m = pymdb.MovieId(id)
       m.getposter()
 
 
