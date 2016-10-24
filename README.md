@@ -6,7 +6,8 @@ Download the pymdb.py script into your Python27 folder and import it in your scr
 
 ##Usage
 Put the source in the folder where you want to use it.
-    import pymdb
+   ``` import pymdb
+   ```
    
 ##Functions
     top250_id()
