@@ -135,7 +135,7 @@ class Movie():
     
     def director(self):
         """Print Name of Director"""
-        return  self.stuff.find('movie').get("director")
+        print  self.stuff.find('movie').get("director")
 
     def actors(self):
         """Prints premier cast"""
@@ -144,7 +144,7 @@ class Movie():
     def plot(self):
         """Prints Short Plot"""
         print self.stuff.find('movie').get("plot")
-        print "For more visit: ", self.stuff.find('movie').get("tomatoeURL")
+        print "For more visit:\n ", self.stuff.find('movie').get("tomatoeURL")
         print "http://www.imdb.com/title/%s"% self.stuff.find('movie').get("imdbID")
 
     def awards(self):
