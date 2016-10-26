@@ -2,6 +2,7 @@ import string
 import urllib
 import re
 import xml.etree.ElementTree as eT
+import json
 
 
 def top_250():
@@ -78,33 +79,31 @@ class Movie:
         """Fetches XML for given Movie from omdbapi.com"""
         service_url = 'http://www.omdbapi.com/?'
         url = service_url + urllib.urlencode({'t': title, 'type': 'movie', 'y': year, 'plot': 'short',
-                                              'tomatoes': 'true', 'r': 'xml'})
+                                              'tomatoes': 'true', 'r': 'json'})
         try:
-            data = urllib.urlopen(url)
-            url_input = data.read()
-            self.stuff = eT.fromstring(url_input)
+            self.stuff = json.loads(urllib.urlopen(url).read())
         except EnvironmentError:
             print "NetWorkError: [Please make sure you are connected to internet]"
             exit()
 
     def info(self):
         """Prints basic Info from IMDb"""
-        print self.stuff.find('movie').get("title")
-        print "Year: ", self.stuff.find('movie').get("year")
-        print "Rating: ", self.stuff.find('movie').get("imdbRating")
-        print "Language: ", self.stuff.find('movie').get("language")
-        print "Genre: ", self.stuff.find('movie').get("genre")
-        print "Director: ", self.stuff.find('movie').get("director")
-        print "Awards: ", self.stuff.find('movie').get("awards")
+        print str(self.stuff['Title'])
+        print "Year: ", str(self.stuff['Year'])
+        print "Rating: ", str(self.stuff['imdbRating'])
+        print "Language: ", str(self.stuff['Language'])
+        print "Genre: ", str(self.stuff['Genre'])
+        print "Director: ", str(self.stuff['Director'])
+        print "Awards: ", str(self.stuff['Awards'])
 
     def tomatoes(self):
         """Prints Rotten Tomatoes Info"""
         print "Rotten Tomatoes Info: \n"
-        print self.stuff.find('movie').get("title")
-        print "TomatoMeter: ", self.stuff.find('movie').get("tomatoMeter"), "%"
-        print "Critic Consensus: ", self.stuff.find('movie').get("tomatoConsensus")
-        print "Audience Score: ", self.stuff.find('movie').get("tomatoUserMeter"), "%"
-        print "For more visit: ", self.stuff.find('movie').get("tomatoeURL")
+        print str(self.stuff['Title'])
+        print "TomatoMeter: ", float(self.stuff['tomatoMeter']), "%"
+        print "Critic Consensus: ", str(self.stuff['tomatoConsensus'])
+        print "Audience Score: ", str(self.stuff['tomatoUserMeter']), "%"
+        print "For more visit: ", str(self.stuff['tomatoURL'])
 
     def get_poster(self):
         """Saves poster of movie in current directory or raise exception if anything goes wrong
@@ -112,9 +111,9 @@ class Movie:
         To change current directory type 'os.chdir('path you wish')'
         """
         try:
-            link = self.stuff.find('movie').get('poster')
+            link = str(self.stuff['Poster'])
             image = urllib.urlopen(link).read()
-            outfile = open('%s.jpg' % self.stuff.find('movie').get("title").translate(None, string.punctuation), 'wb')
+            outfile = open('%s.jpg' % str(self.stuff['Title']).translate(None, string.punctuation), 'wb')
             outfile.write(image)
             outfile.close()
         except AttributeError:
@@ -126,49 +125,49 @@ class Movie:
         """
         :return: Year of Movie
         """
-        return int(self.stuff.find('movie').get("year"))
+        return int(self.stuff['Year'])
 
     def rating(self):
         """
         :return: IMDb rating
         """
-        return float(self.stuff.find('movie').get("imdbRating"))
+        return float(self.stuff['imdbRating'])
 
     def rt_rating(self):
         """
         :return: Rotten tomatoes rating
         """
-        return float(self.stuff.find('movie').get("tomatoMeter"))
+        return float(self.stuff['tomatoRating'])
 
     def director(self):
         """
         :return: list of Name of Directors of movie
         """
-        return map(str, self.stuff.find('movie').get("director").split(","))
+        return map(str, self.stuff['Director'].split(","))
 
     def actors(self):
         """
         :return: list of Name of Cast in movie
         """
-        return map(str, self.stuff.find('movie').get("actors").split(","))
+        return map(str, self.stuff['Actors'].split(","))
 
     def plot(self):
         """Prints Short Plot"""
-        print self.stuff.find('movie').get("plot")
-        print "For more visit:\n ", self.stuff.find('movie').get("tomatoeURL")
-        print "http://www.imdb.com/title/%s" % self.stuff.find('movie').get("imdbID")
+        print str(self.stuff['Plot'])
+        print "For more visit:\n ", str(self.stuff['tomatoURL'])
+        print "http://www.imdb.com/title/%s" % str(self.stuff['imdbID'])
 
     def awards(self):
         """
         :return: rewards earned by the movie
         """
-        return self.stuff.find('movie').get("awards")
+        return str(self.stuff['Awards'])
 
     def reviews(self):
         """Prints Rotten Tomatoes Critics Consensus"""
-        print self.stuff.find('movie').get("tomatoConsensus")
-        print "For more visit: ", self.stuff.find('movie').get("tomatoeURL")
-        print "http://www.imdb.com/title/%s/reviews?ref_=tt_ov_rt" % self.stuff.find('movie').get("imdbID")
+        print str(self.stuff['tomatoConsensus'])
+        print "For more visit: ", str(self.stuff['tomatoURL'])
+        print "http://www.imdb.com/title/%s/reviews?ref_=tt_ov_rt" % str(self.stuff['imdbID'])
 
 
 class MovieId(object, Movie):
@@ -177,9 +176,15 @@ class MovieId(object, Movie):
     def __init__(self, movie_id):
         super(MovieId, self).__init__()
         try:
-            url = urllib.urlopen("http://www.omdbapi.com/?i=%s&y=&plot=short&r=xml" % movie_id)
-            url_input = url.read()
-            self.stuff = eT.fromstring(url_input)
+            raw_page = urllib.urlopen("http://www.omdbapi.com/?i=%s&y=&plot=short&r=json" % movie_id)
+            self.stuff = json.loads(raw_page.read())
+            if str(self.stuff['Response']) == 'False':
+                print "Error: [  Please enter correct IMDB ID ]"
+                exit()
+            else:
+                print "I came here"
+                pass
+
         except EnvironmentError:
             print "NetWorkError: [Please make sure you are connected to internet]"
             exit()
@@ -188,4 +193,4 @@ class MovieId(object, Movie):
         """
         :return: Title of movie which has this particular id on IMDb
         """
-        return self.stuff.find('movie').get("title")
+        return str(self.stuff['Title'].encode('ascii', 'ignore'))
