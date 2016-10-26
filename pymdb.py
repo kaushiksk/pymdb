@@ -88,22 +88,22 @@ class Movie:
 
     def info(self):
         """Prints basic Info from IMDb"""
-        print str(self.stuff['Title'])
-        print "Year: ", str(self.stuff['Year'])
-        print "Rating: ", str(self.stuff['imdbRating'])
-        print "Language: ", str(self.stuff['Language'])
-        print "Genre: ", str(self.stuff['Genre'])
-        print "Director: ", str(self.stuff['Director'])
-        print "Awards: ", str(self.stuff['Awards'])
+        print str(self.stuff['Title'].encode('ascii', 'ignore'))
+        print "Year: ", str(self.stuff['Year'].encode('ascii', 'ignore'))
+        print "Rating: ", str(self.stuff['imdbRating'].encode('ascii', 'ignore'))
+        print "Language: ", str(self.stuff['Language'].encode('ascii', 'ignore'))
+        print "Genre: ", str(self.stuff['Genre'].encode('ascii', 'ignore'))
+        print "Director: ", str(self.stuff['Director'].encode('ascii', 'ignore'))
+        print "Awards: ", str(self.stuff['Awards'].encode('ascii', 'ignore'))
 
     def tomatoes(self):
         """Prints Rotten Tomatoes Info"""
         print "Rotten Tomatoes Info: \n"
         print str(self.stuff['Title'])
         print "TomatoMeter: ", float(self.stuff['tomatoMeter']), "%"
-        print "Critic Consensus: ", str(self.stuff['tomatoConsensus'])
-        print "Audience Score: ", str(self.stuff['tomatoUserMeter']), "%"
-        print "For more visit: ", str(self.stuff['tomatoURL'])
+        print "Critic Consensus: ", str(self.stuff['tomatoConsensus'].encode('ascii', 'ignore'))
+        print "Audience Score: ", str(self.stuff['tomatoUserMeter'].encode('ascii', 'ignore')), "%"
+        print "For more visit: ", str(self.stuff['tomatoURL'].encode('ascii', 'ignore'))
 
     def get_poster(self):
         """Saves poster of movie in current directory or raise exception if anything goes wrong
@@ -113,7 +113,7 @@ class Movie:
         try:
             link = str(self.stuff['Poster'])
             image = urllib.urlopen(link).read()
-            outfile = open('%s.jpg' % str(self.stuff['Title']).translate(None, string.punctuation), 'wb')
+            outfile = open('%s.jpg' % str(self.stuff['Title'].encode('ascii', 'ignore')).translate(None, string.punctuation), 'wb')
             outfile.write(image)
             outfile.close()
         except AttributeError:
@@ -143,19 +143,19 @@ class Movie:
         """
         :return: list of Name of Directors of movie
         """
-        return map(str, self.stuff['Director'].split(","))
+        return map(str, self.stuff['Director'].encode('ascii', 'ignore').split(","))
 
     def actors(self):
         """
         :return: list of Name of Cast in movie
         """
-        return map(str, self.stuff['Actors'].split(","))
+        return map(str, self.stuff['Actors'].encode('ascii', 'ignore').split(","))
 
     def plot(self):
         """Prints Short Plot"""
-        print str(self.stuff['Plot'])
-        print "For more visit:\n ", str(self.stuff['tomatoURL'])
-        print "http://www.imdb.com/title/%s" % str(self.stuff['imdbID'])
+        print str(self.stuff['Plot'].encode('ascii', 'ignore'))
+        print "For more visit:\n ", str(self.stuff['tomatoURL'].encode('ascii', 'ignore'))
+        print "http://www.imdb.com/title/%s" % str(self.stuff['imdbID'].encode('ascii', 'ignore'))
 
     def awards(self):
         """
@@ -165,9 +165,9 @@ class Movie:
 
     def reviews(self):
         """Prints Rotten Tomatoes Critics Consensus"""
-        print str(self.stuff['tomatoConsensus'])
-        print "For more visit: ", str(self.stuff['tomatoURL'])
-        print "http://www.imdb.com/title/%s/reviews?ref_=tt_ov_rt" % str(self.stuff['imdbID'])
+        print str(self.stuff['tomatoConsensus'].encode('ascii', 'ignore'))
+        print "For more visit: ", str(self.stuff['tomatoURL'].encode('ascii', 'ignore'))
+        print "http://www.imdb.com/title/%s/reviews?ref_=tt_ov_rt" % str(self.stuff['imdbID'].encode('ascii', 'ignore'))
 
 
 class MovieId(object, Movie):
