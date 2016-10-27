@@ -134,21 +134,25 @@ class Movie():
         return float(self.stuff.find('movie').get("tomatoMeter"))
     
     def director(self):
-        """Print Name of Director"""
-        print  self.stuff.find('movie').get("director")
+        """Return Name of Director"""
+	self.director=self.stuff.find('movie').get("director")
+        return  self.director
 
     def actors(self):
-        """Prints premier cast"""
-        print  self.stuff.find('movie').get("actors")
+        """Return premier cast"""
+	self.actors=self.stuff.find('movie').get("actors")
+        return self.actors
 
     def plot(self):
         """Prints Short Plot"""
-        print self.stuff.find('movie').get("plot")
+        self.plot=self.stuff.find('movie').get("plot")
+	return self.plot
         print "For more visit:\n ", self.stuff.find('movie').get("tomatoeURL")
         print "http://www.imdb.com/title/%s"% self.stuff.find('movie').get("imdbID")
 
     def awards(self):
-        print  self.stuff.find('movie').get("awards")
+	self.award=self.stuff.find('movie').get("awards")
+        return self.award
 
     def reviews(self):
         """Prints Rotten Tomatoes Critics Consensus"""
