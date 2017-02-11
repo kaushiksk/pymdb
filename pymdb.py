@@ -8,22 +8,21 @@ def top_250():
     """Pulls out movie names from the Imdb Top 250 webpage and adds them to a dictionary with its position.
     Returns dictionary"""
 
-    movielist=dict()
-    i=1
-    url='http://www.imdb.com/chart/top'
-    file= urllib.urlopen(url).read()
-    link = re.findall('title=".*?dir.*?>(.*?)</a>',file)
+    movielist = dict()
+    i = 1
+    url = 'http://www.imdb.com/chart/top'
+    file = urllib.urlopen(url).read()
+    link = re.findall('title=".*?dir.*?>(.*?)</a>' , file)
     for links in link:
         
-        movielist[i]=links
-        i+=1
+        movielist[i] = links
+        i += 1
     return movielist
 
 def top250_yearcount():
     """Creates a dictionary of number of movies of a particular year in the Imdb Top 250.
     Returns a dictionary"""
 
-    i=1
     yearcount=dict()
     
     url='http://www.imdb.com/chart/top'
@@ -31,10 +30,10 @@ def top250_yearcount():
 
             
          
-    years = re.findall('secondaryInfo">\((.*?)\)</span>',file)
+    years = re.findall('secondaryInfo">\((.*?)\)</span>' , file)
     for year in years:
         
-        yearcount[year] = yearcount.get(year,0) + 1
+        yearcount[year] = yearcount.get(year , 0) + 1
     return yearcount
 
 
@@ -135,11 +134,11 @@ class Movie():
     
     def director(self):
         """Print Name of Director"""
-        print  self.stuff.find('movie').get("director")
+        return  self.stuff.find('movie').get("director")
 
     def actors(self):
         """Prints premier cast"""
-        print  self.stuff.find('movie').get("actors")
+        return  self.stuff.find('movie').get("actors")
 
     def plot(self):
         """Prints Short Plot"""
@@ -148,7 +147,7 @@ class Movie():
         print "http://www.imdb.com/title/%s"% self.stuff.find('movie').get("imdbID")
 
     def awards(self):
-        print  self.stuff.find('movie').get("awards")
+        return  self.stuff.find('movie').get("awards")
 
     def reviews(self):
         """Prints Rotten Tomatoes Critics Consensus"""
