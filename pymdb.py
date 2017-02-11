@@ -9,15 +9,15 @@ def top_250():
     dictionary with its position.
     Returns dictionary"""
 
-    movielist = {}
+    movielist = dict()
     i = 1
     url = 'http://www.imdb.com/chart/top'
-    datafile = urllib.urlopen(url).read()
-    link = re.findall('title=".*?dir.*?>(.*?)</a>', datafile)
-    for links in link:		 
-        movielist[i] = links		
-        i += 1		
-    
+    file = urllib.urlopen(url).read()
+    link = re.findall('title=".*?dir.*?>(.*?)</a>', file)
+    for links in link:
+
+        movielist[i] = links
+        i += 1
     return movielist
 
 
@@ -27,7 +27,7 @@ def top250_yearcount():
     Returns a dictionary"""
 
     i = 1
-    yearcount = {}
+    yearcount = dict()
 
     url = 'http://www.imdb.com/chart/top'
     file = urllib.urlopen(url).read()
@@ -44,12 +44,12 @@ def years_top250():
     Returns  dictionary"""
 
     i = 1
-    year250 = {}
+    year250 = dict()
 
     url = 'http://www.imdb.com/chart/top'
-    datafile = urllib.urlopen(url).read()
+    file = urllib.urlopen(url).read()
 
-    years = re.findall('secondaryInfo">\((.*?)\)</span>', datafile)
+    years = re.findall('secondaryInfo">\((.*?)\)</span>', file)
     for year in years:
         year250[i] = year
         i += 1
@@ -61,12 +61,11 @@ def top250_id():
     Returns List"""
     movielist = []
     url2 = 'http://www.imdb.com/chart/top'
-    datafile = urllib.urlopen(url2).read()
-    link = re.findall('<div class=".*?tconst="(.*?)"></div>', datafile)
-    for links in link:		 
-        movielist[i] = links		
-        i += 1		
-    
+    file = urllib.urlopen(url2).read()
+    links = re.findall('<div class=".*?tconst="(.*?)"></div>', file)
+
+    for link in links:
+        movielist.append(link)
     return movielist
 
 
@@ -82,8 +81,8 @@ class Movie():
                                            'tomatoes': 'true',
                                            'r': 'xml'})
         data = urllib.urlopen(url)
-        datainput = data.read()
-        self.stuff = ET.fromstring(datainput)
+        input = data.read()
+        self.stuff = ET.fromstring(input)
 
     def info(self):
         """Prints basic Info from IMDb"""
