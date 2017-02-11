@@ -9,15 +9,12 @@ def top_250():
     dictionary with its position.
     Returns dictionary"""
 
-    movielist = dict()
+    movielist = {}
     i = 1
     url = 'http://www.imdb.com/chart/top'
-    file = urllib.urlopen(url).read()
-    link = re.findall('title=".*?dir.*?>(.*?)</a>', file)
-    for links in link:
-
-        movielist[i] = links
-        i += 1
+    datafile = urllib.urlopen(url).read()
+    movielist = re.findall('title=".*?dir.*?>(.*?)</a>', datafile)
+    
     return movielist
 
 
@@ -27,7 +24,7 @@ def top250_yearcount():
     Returns a dictionary"""
 
     i = 1
-    yearcount = dict()
+    yearcount = {}
 
     url = 'http://www.imdb.com/chart/top'
     file = urllib.urlopen(url).read()
@@ -44,12 +41,12 @@ def years_top250():
     Returns  dictionary"""
 
     i = 1
-    year250 = dict()
+    year250 = {}
 
     url = 'http://www.imdb.com/chart/top'
-    file = urllib.urlopen(url).read()
+    datafile = urllib.urlopen(url).read()
 
-    years = re.findall('secondaryInfo">\((.*?)\)</span>', file)
+    years = re.findall('secondaryInfo">\((.*?)\)</span>', datafile)
     for year in years:
         year250[i] = year
         i += 1
@@ -61,11 +58,10 @@ def top250_id():
     Returns List"""
     movielist = []
     url2 = 'http://www.imdb.com/chart/top'
-    file = urllib.urlopen(url2).read()
-    links = re.findall('<div class=".*?tconst="(.*?)"></div>', file)
+    datafile = urllib.urlopen(url2).read()
+    movielist = re.findall('<div class=".*?tconst="(.*?)"></div>', datafile)
 
-    for link in links:
-        movielist.append(link)
+    
     return movielist
 
 
@@ -81,8 +77,8 @@ class Movie():
                                            'tomatoes': 'true',
                                            'r': 'xml'})
         data = urllib.urlopen(url)
-        input = data.read()
-        self.stuff = ET.fromstring(input)
+        datainput = data.read()
+        self.stuff = ET.fromstring(datainput)
 
     def info(self):
         """Prints basic Info from IMDb"""
