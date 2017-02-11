@@ -2,6 +2,7 @@ import string
 import urllib
 import re
 import xml.etree.ElementTree as ET
+import json
 
 
 def top_250():
@@ -81,12 +82,11 @@ class Movie():
     def __init__(self, title,year=None):
         """Fetches XML for given Movie from omdbapi.com"""
         serviceurl = 'http://www.omdbapi.com/?'
-	url = serviceurl+urllib.urlencode({'t':title,
-                                           'type':'movie',
-                                           'y':year,
-                                           'plot':'short',
-                                           'tomatoes':'true',
-                                           'r':'xml'})
+        url = serviceurl + urllib.urlencode({'t':title, 'type':'movie', 'y':year, 'plot':'short', 'tomatoes':'true', 'r':'xml'})
+        url2 = serviceurl + urllib.urlencode({'t':title, 'type':'movie', 'y':year, 'plot':'short', 'tomatoes':'true', 'r':'json'})
+        data_json = urllib.urlopen(url2)
+        json_data = data_json.read()
+        self.jsonstuff = json.loads(json_data)
         data = urllib.urlopen(url)
         input = data.read()
         self.stuff = ET.fromstring(input)
@@ -101,6 +101,16 @@ class Movie():
         print "Genre: ", self.stuff.find('movie').get("genre")
         print "Director: ", self.stuff.find('movie').get("director")
         print "Awards: ", self.stuff.find('movie').get("awards")
+
+    def jsoninfo(self):
+        """Prints basic Info from IMDb"""
+        print self.jsonstuff["Title"]
+        print "Year: ", self.jsonstuff["Year"]
+        print "Rating: ", self.jsonstuff["imdbRating"]
+        print "Language: ", self.jsonstuff["Language"]
+        print "Genre: ", self.jsonstuff["Genre"]
+        print "Director: ", self.jsonstuff["Director"]
+        print "Awards: ", self.jsonstuff["Awards"]
 
     def tomatoes(self):
         """Prints Rotten Tomatoes Info"""
