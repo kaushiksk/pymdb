@@ -13,7 +13,10 @@ def top_250():
     i = 1
     url = 'http://www.imdb.com/chart/top'
     datafile = urllib.urlopen(url).read()
-    movielist = re.findall('title=".*?dir.*?>(.*?)</a>', datafile)
+    link = re.findall('title=".*?dir.*?>(.*?)</a>', datafile)
+    for links in link:		 
+        movielist[i] = links		
+        i += 1		
     
     return movielist
 
@@ -59,8 +62,10 @@ def top250_id():
     movielist = []
     url2 = 'http://www.imdb.com/chart/top'
     datafile = urllib.urlopen(url2).read()
-    movielist = re.findall('<div class=".*?tconst="(.*?)"></div>', datafile)
-
+    link = re.findall('<div class=".*?tconst="(.*?)"></div>', datafile)
+    for links in link:		 
+        movielist[i] = links		
+        i += 1		
     
     return movielist
 
