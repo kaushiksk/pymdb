@@ -63,7 +63,17 @@ def years_top250():
         print "NetWorkError: [Please make sure you are connected to internet]"
         return {}
 
+def top250_id():
+    """Pulls out ImDb Title ID's from the Imdb Top 250 webpage and adds them to a list.
+    Returns List"""
+    movielist = []
+    url2 = 'http://www.imdb.com/chart/top'
+    file = urllib.urlopen(url2).read()
+    links = re.findall('<div class=".*?tconst="(.*?)"></div>', file)
 
+    for link in links:
+        movielist.append(link)
+    return movielist
 class Movie:
     """Enter movie title as parameter. Year is an optional argument"""
 
