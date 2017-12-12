@@ -2,9 +2,9 @@
 Python  script to scrape data from IMDb Top250 (www.imdb.com/chart/top) and parse xml of movie data from OMDb API (www.omdbapi.com)
 
 ## Installation and Usage
-Windows - Download the pymdb.py script into your Python27 folder and import it in your scripts.
-Linux - Put the source in the folder where you want to use it and then import as import pymdb.
-   
+`$ git clone https://github.com/kaushiksk/pymdb.git && cd pymdb`
+
+`$ python setup.py install`
    
 ## Functions
     top250_id()
