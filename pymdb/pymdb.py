@@ -97,7 +97,7 @@ class Movie:
         assert mytype in ('', "movie", "series", "episode")
         service_url = 'http://www.omdbapi.com/?apikey=eed67065&'
         url = service_url + urlencode({'t': title, 'type': mytype, 'y': year, 'plot': 'short',
-                                              'tomatoes': 'true', 'r': 'json'})
+                                       'r': 'json'})
         try:
             self.stuff = json.loads(urlopen(url).read())
         except EnvironmentError:
@@ -115,30 +115,27 @@ class Movie:
         """
         assert mytype in ('', "movie", "series", "episode")
         service_url = 'http://www.omdbapi.com/?apikey=eed67065&'
-        url = service_url + urlencode({'s': title, 'type': mytype, 'y': year, 'plot': 'short','r': 'json'})
-        results = json.loads(urlopen(url).read())["Search"]
-        for item in results:
-            print("\t" + item["Title"] + " (" + item["Year"] + ")" + " [" + item["imdbID"] + "]" + " {" + item["Type"] + "}")
-        print("Found total {} matching results".format(len(results)))
+        url = service_url + urlencode({'s': title, 'type': mytype, 'y': year,'r': 'json'})
+        try:
+            results = json.loads(urlopen(url).read())["Search"]
+            for item in results:
+                print("\t" + item["Title"] + " (" + item["Year"] + ")" + " [" + item["imdbID"] + "]" + " {" + item["Type"] + "}")
+            print("Found total {} matching results".format(len(results)))
+        except KeyError:
+            print("Not found")
+
 
     def info(self):
         """Prints basic Info from IMDb"""
         print(self.stuff["Title"])
         print("Year: ", self.stuff["Year"])
         print("Rating: {rating} ({votes} votes)".format(rating=self.stuff["imdbRating"], votes=self.stuff["imdbVotes"]))
+        print("Metascore: ", self.stuff["Metascore"])
         print("Language: ", self.stuff["Language"])
         print("Genre: ", self.stuff["Genre"])
         print("Director: ", self.stuff["Director"])
         print("Awards: ", self.stuff["Awards"])
 
-    def tomatoes(self):
-        """Prints Rotten Tomatoes Info"""
-        print("Rotten Tomatoes Info:")
-        print(self.stuff["Title"])
-        print("TomatoMeter: {} %".format(self.stuff["tomatoMeter"]))
-        print("Critic Consensus: ", self.stuff["tomatoConsensus"])
-        print("Audience Score: {} %".format(self.stuff["tomatoUserMeter"]))
-        print("For more visit: ", self.stuff["tomatoURL"])
 
     def getposter(self):
         """Saves poster of movie in current directory or raise exception if anything goes wrong
@@ -154,7 +151,7 @@ class Movie:
             outfile.close()
             print("Poster saved to " + filename)
         except AttributeError:
-            print("Error: [ Something went wrong while downloading image, Did you entered correct name or ID ]")
+            print("Error: [ Something went wrong while downloading image, make sure you entered correct name or ID ]")
         except IOError:
             print("IOError: [ No such Image Exist ]")
 
@@ -164,17 +161,16 @@ class Movie:
         """
         return int(self.stuff["Year"])
 
-    def rating(self):
+    def ratings(self):
         """
-        :return: IMDb rating
+        :return: IMDb, RT, Metacritic ratings
         """
-        return float(self.stuff["imdbRating"])
+        data = self.stuff["Ratings"]
+        rating = {}
+        for entry in data:
+            rating[entry["Source"]] = entry["Value"]
+        return rating
 
-    def rt_rating(self):
-        """
-        :return: Rotten tomatoes rating
-        """
-        return float(self.stuff["tomatoMeter"])
 
     def director(self):
         """
@@ -191,7 +187,7 @@ class Movie:
     def plot(self):
         """Prints Short Plot"""
         print(self.stuff["Plot"])
-        print("For more visit:\n ", self.stuff["tomatoeURL"])
+        print("For more visit:\n ", self.stuff["tomatoURL"])
         print("http://www.imdb.com/title/%s" % self.stuff["imdbID"])
 
     def awards(self):
@@ -215,7 +211,7 @@ class MovieId(Movie):
             assert mytype in ('', "movie", "series", "episode")
             service_url = 'http://www.omdbapi.com/?apikey=eed67065&'
             url = service_url + urlencode({'i': movie_id, 'type': mytype, 'plot': 'short',
-                                              'tomatoes': 'true', 'r': 'json'})
+                                           'r': 'json'})
             self.stuff = json.loads(urlopen(url).read())
 
         except EnvironmentError:
