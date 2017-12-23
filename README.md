@@ -41,7 +41,13 @@ Python  script to scrape data from IMDb Top250 (www.imdb.com/chart/top) and pars
    >>> m.getposter()
    Poster saved to The Shawshank Redemption.jpg
    >>m.info()
-   The Shawshank Redemption                                                                                                Year:  1994                                                                                                             Rating: 9.3 (1,886,223 votes)                                                                                           Language:  English                                                                                                      Genre:  Crime, Drama                                                                                                    Director:  Frank Darabont                                                                                               Awards:  Nominated for 7 Oscars. Another 19 wins & 29 nominations.
+   The Shawshank Redemption
+   Year:  1994                                                                                          
+   Rating: 9.3 (1,886,223 votes)
+   Language:  English
+   Genre:  Crime, Drama
+   Director:  Frank Darabon
+   Awards:  Nominated for 7 Oscars. Another 19 wins & 29 nominations.
 
 ```
 
@@ -62,7 +68,12 @@ Python  script to scrape data from IMDb Top250 (www.imdb.com/chart/top) and pars
   >>> m = MovieId('tt0211915')
   >>> m.info()
   Amélie
-  Year:  2001                                                                                                             Rating: 8.3 (592,382 votes)                                                                                             Language:  French, Russian, English                                                                                     Genre:  Comedy, Romance                                                                                                 Director:  Jean-Pierre Jeunet                                                                                           Awards:  Nominated for 5 Oscars. Another 58 wins & 65 nominations.
+  Year:  2001
+  Rating: 8.3 (592,382 votes)
+  Language:  French, Russian, English
+  Genre:  Comedy, Romance
+  Director:  Jean-Pierre Jeunet
+  Awards:  Nominated for 5 Oscars. Another 58 wins & 65 nominations.
   ```
   
 ## Example script: Download posters of all movies in IMDb Top250.
