@@ -85,18 +85,18 @@ class Movie:
     """Movie
     Enter movie title as parameter. Year is an optional argument"""
 
-    def __init__(self, title, year=None, mytype=''):
+    def __init__(self, title, year=None, category=''):
         """Fetches JSON for given Movie from omdbapi.com
-        
+
         Args:
             title (str): title of the movie
             year (None, optional): year of release
-            mytype (str, optional): one of "movie", "series", "episode"
-        
+            category (str, optional): one of "movie", "series", "episode"
+
         """
-        assert mytype in ('', "movie", "series", "episode")
+        assert category in ('', "movie", "series", "episode")
         service_url = 'http://www.omdbapi.com/?apikey=eed67065&'
-        url = service_url + urlencode({'t': title, 'type': mytype, 'y': year, 'plot': 'short',
+        url = service_url + urlencode({'t': title, 'type': category, 'y': year, 'plot': 'short',
                                        'r': 'json'})
         try:
             self.stuff = json.loads(urlopen(url).read())
@@ -105,17 +105,17 @@ class Movie:
             #exit()
 
     @classmethod
-    def search(self, title, mytype='', year=None):
+    def search(self, title, category='', year=None):
         """search for a movie or series by title
-        
+
         Args:
             title (str): title of the movie
             year (None, optional): year of release
-            mytype (str, optional): one of "movie", "series", "episode"
+            category (str, optional): one of "movie", "series", "episode"
         """
-        assert mytype in ('', "movie", "series", "episode")
+        assert category in ('', "movie", "series", "episode")
         service_url = 'http://www.omdbapi.com/?apikey=eed67065&'
-        url = service_url + urlencode({'s': title, 'type': mytype, 'y': year,'r': 'json'})
+        url = service_url + urlencode({'s': title, 'type': category, 'y': year,'r': 'json'})
         try:
             results = json.loads(urlopen(url).read())["Search"]
             for item in results:
@@ -206,11 +206,11 @@ class Movie:
 class MovieId(Movie):
     """Takes IMDb ID as parameter instead of title"""
 
-    def __init__(self, movie_id, mytype=''):
+    def __init__(self, movie_id, category=''):
         try:
-            assert mytype in ('', "movie", "series", "episode")
+            assert category in ('', "movie", "series", "episode")
             service_url = 'http://www.omdbapi.com/?apikey=eed67065&'
-            url = service_url + urlencode({'i': movie_id, 'type': mytype, 'plot': 'short',
+            url = service_url + urlencode({'i': movie_id, 'type': category, 'plot': 'short',
                                            'r': 'json'})
             self.stuff = json.loads(urlopen(url).read())
 
