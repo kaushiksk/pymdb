@@ -32,7 +32,7 @@ Python  script to scrape data from IMDb Top250 (www.imdb.com/chart/top) and pars
    >>> m = pymdb.MovieId("tt0111161")
 ```
 
-    Use Class functions:
+    Get info about movie:
 ```python
    >>> m.year()
    1994
@@ -86,4 +86,8 @@ Python  script to scrape data from IMDb Top250 (www.imdb.com/chart/top) and pars
       m.getposter()
 ```
 
-P.S. The Movie class works for any movie. It doesn't have to be in the Top 250.
+## Bugs
+Report any bugs you find at https://github.com/kaushiksk/pymdb/issues.
+
+## Note
+Data is fetched from [OMDb API](https://omdbapi.com) to which I am in no way associated. Please be patient if the server is down.
