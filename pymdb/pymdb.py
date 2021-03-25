@@ -85,7 +85,7 @@ class Movie:
     """Movie
     Enter movie title as parameter. Year is an optional argument"""
 
-    def __init__(self, title, year=None, category=''):
+    def __init__(self, api_key, title, year=None, category=''):
         """Fetches JSON for given Movie from omdbapi.com
 
         Args:
@@ -95,7 +95,7 @@ class Movie:
 
         """
         assert category in ('', "movie", "series", "episode")
-        service_url = 'http://www.omdbapi.com/?apikey=eed67065&'
+        service_url = 'http://www.omdbapi.com/?apikey=' + api_key + '&'
         url = service_url + urlencode({'t': title, 'type': category, 'y': year, 'plot': 'short',
                                        'r': 'json'})
         try:
