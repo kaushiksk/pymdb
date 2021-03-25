@@ -105,7 +105,7 @@ class Movie:
             #exit()
 
     @classmethod
-    def search(self, title, category='', year=None):
+    def search(self, api_key, title, category='', year=None):
         """search for a movie or series by title
 
         Args:
@@ -114,7 +114,7 @@ class Movie:
             category (str, optional): one of "movie", "series", "episode"
         """
         assert category in ('', "movie", "series", "episode")
-        service_url = 'http://www.omdbapi.com/?apikey=eed67065&'
+        service_url = 'http://www.omdbapi.com/?apikey=' + api_key + '&'
         url = service_url + urlencode({'s': title, 'type': category, 'y': year,'r': 'json'})
         try:
             results = json.loads(urlopen(url).read())["Search"]
@@ -206,10 +206,10 @@ class Movie:
 class MovieId(Movie):
     """Takes IMDb ID as parameter instead of title"""
 
-    def __init__(self, movie_id, category=''):
+    def __init__(self, api_key, movie_id, category=''):
         try:
             assert category in ('', "movie", "series", "episode")
-            service_url = 'http://www.omdbapi.com/?apikey=eed67065&'
+            service_url = 'http://www.omdbapi.com/?apikey=' + api_key + '&'
             url = service_url + urlencode({'i': movie_id, 'type': category, 'plot': 'short',
                                            'r': 'json'})
             self.stuff = json.loads(urlopen(url).read())
