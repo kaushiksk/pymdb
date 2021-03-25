@@ -27,9 +27,9 @@ Python  script to scrape data from IMDb Top250 (www.imdb.com/chart/top) and pars
 ## Using the Movie and MovieId Class
     Initialise:
 ```python
-   >>> m = pymdb.Movie("The Shawshank Redemption")
-   >>> m = pymdb.Movie("The Shawshank Redemption",1994)
-   >>> m = pymdb.MovieId("tt0111161")
+   >>> m = pymdb.Movie(API_KEY, "The Shawshank Redemption")
+   >>> m = pymdb.Movie(API_KEY, "The Shawshank Redemption",1994)
+   >>> m = pymdb.MovieId(API_KEY, "tt0111161")
 ```
 
     Get info about movie:
@@ -56,7 +56,7 @@ Python  script to scrape data from IMDb Top250 (www.imdb.com/chart/top) and pars
 ## Example script: Search for a movie and get info
 ```python
   >>> from pymdb import Movie, MovieId
-  >>> Movie.search("Amelie")
+  >>> Movie.search(API_KEY, "Amelie")
   Amélie (2001) [tt0211915] {movie} 
   Amelie rennt (2017) [tt5712474] {movie}
   Liebe Amelie (2005) [tt0469116] {movie}
@@ -65,7 +65,7 @@ Python  script to scrape data from IMDb Top250 (www.imdb.com/chart/top) and pars
   .
   Ta hand om Amelie (1964) [tt0242926] {movie} 
   Found total 10 matching results
-  >>> m = MovieId('tt0211915')
+  >>> m = MovieId(API_KEY, 'tt0211915')
   >>> m.info()
   Amélie
   Year:  2001
@@ -82,7 +82,7 @@ Python  script to scrape data from IMDb Top250 (www.imdb.com/chart/top) and pars
     import pymdb
     ids = pymdb.top250_id()
     for id in ids:
-      m = pymdb.MovieId(id)
+      m = pymdb.MovieId(API_KEY, id)
       m.getposter()
 ```
 
@@ -91,3 +91,4 @@ Report any bugs you find at https://github.com/kaushiksk/pymdb/issues.
 
 ## Note
 Data is fetched from [OMDb API](https://omdbapi.com) to which I am in no way associated. Please be patient if the server is down.
+Get your own API Key from OMDbAPI.
